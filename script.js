@@ -3,11 +3,6 @@ const Buttons = document.querySelectorAll("button");
 const text_Area = document.getElementById("text-area");
 const displayed_Messages = document.getElementById("display");
 
-// Required Packages
-const dotenv = require("dotenv");
-
-dotenv.config();
-
 text_Area.addEventListener("change", (e) => {
   Buttons[0].addEventListener("click", () => {
     console.log(e.target.value);
