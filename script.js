@@ -3,6 +3,11 @@ const Buttons = document.querySelectorAll("button");
 const text_Area = document.getElementById("text-area");
 const displayed_Messages = document.getElementById("display");
 
+// Required Packages
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 text_Area.addEventListener("change", (e) => {
   Buttons[0].addEventListener("click", () => {
     console.log(e.target.value);
@@ -21,7 +26,7 @@ text_Area.addEventListener("change", (e) => {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": "2b22bdf99emsh10bbfe7c3f5455ep19223bjsnd367e3755775",
+        "X-RapidAPI-Key": process.env.RAPID_API_TOKEN,
       },
       body: encodedParams,
     };
