@@ -26,7 +26,7 @@ text_Area.addEventListener("change", (e) => {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": process.env.RAPID_API_TOKEN,
+        "X-RapidAPI-Key": "2b22bdf99emsh10bbfe7c3f5455ep19223bjsnd367e3755775",
       },
       body: encodedParams,
     };
