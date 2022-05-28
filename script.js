@@ -3,40 +3,39 @@ const Buttons = document.querySelectorAll("button");
 const text_Area = document.getElementById("text-area");
 const displayed_Messages = document.getElementById("display");
 
-text_Area.addEventListener("change", (e) => {
-  Buttons[0].addEventListener("click", () => {
-    console.log(e.target.value);
-    displayed_Messages.innerText = e.target.value;
-    console.log(e.target.value);
-  });
+Buttons[0].addEventListener("click", () => {
+  console.log(text_Area.value);
+  displayed_Messages.innerText = text_Area.value;
+  console.log(text_Area.value);
+});
 
-  Buttons[1].addEventListener("click", () => {
-    const encodedParams = new URLSearchParams();
-    encodedParams.append("q", e.target.value);
-    encodedParams.append("target", "ar");
+Buttons[1].addEventListener("click", () => {
+  const text = text_Area.value;
 
-    const options = {
-      method: "POST",
-      headers: {
-        "content-type": "application/x-www-form-urlencoded",
-        "Accept-Encoding": "application/gzip",
-        "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": "2b22bdf99emsh10bbfe7c3f5455ep19223bjsnd367e3755775",
-      },
-      body: encodedParams,
-    };
+  // 1. Create an object (map) for charcter conversion
+  const en = "qwertyuiop[]asdfghjkl;'zxcvbnm,./`YH";
+  const ar = "ضصثقفغعهخحجدشسيبلاتنمكطئءؤرﻻىةوزظذإأ";
+  const charMap = {};
+  for (let i = 0; i < en.length; i++) {
+    charMap[en[i]] = ar[i];
+  }
 
-    fetch(
-      "https://google-translate1.p.rapidapi.com/language/translate/v2",
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => e.target.value = response.data.translations[0].translatedText)
-      .catch((err) => console.error(err));
-  });
+  let buffer = "";
+  // 2. check for each charcter
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (charMap.hasOwnProperty(ch)) {
+      // if exists: correct
+      buffer += charMap[ch];
+    } else {
+      // if not: keep the original charcter
+      buffer += ch;
+    }
+  }
+  text_Area.value = buffer;
+});
 
-  Buttons[2].addEventListener("click", () => {
-    e.target.value = "";
-    displayed_Messages.innerText = e.target.value;
-  });
+Buttons[2].addEventListener("click", () => {
+  text_Area.value = "";
+  displayed_Messages.innerText = text_Area.value;
 });
